@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:grpc/grpc.dart';
 import 'package:dart_grpc_server/dart_grpc_server.dart';
 
@@ -24,8 +23,7 @@ class GroceriesService extends GroceriesServiceBase {
       categoriesServices.editCategory(request)!;
 
   @override
-  Future<Item> editItem(ServiceCall call, Item request) async =>
-      itemsServices.editItem(request)!;
+  Future<Item> editItem(ServiceCall call, Item request) async => itemsServices.editItem(request)!;
 
   @override
   Future<Categories> getAllCategories(ServiceCall call, Empty request) async =>
@@ -44,18 +42,23 @@ class GroceriesService extends GroceriesServiceBase {
       itemsServices.getItemByName(request.name)!;
 
   @override
-  Future<AllItemsOfCategory> getItemsByCategory(
-          ServiceCall call, Category request) async =>
+  Future<AllItemsOfCategory> getItemsByCategory(ServiceCall call, Category request) async =>
       AllItemsOfCategory(
-          items: itemsServices.getItemsByCategory(request.id)!,
-          categoryId: request.id);
+          items: itemsServices.getItemsByCategory(request.id)!, categoryId: request.id);
 }
 
 Future<void> main(List<String> args) async {
   final server = Server(
-    [GroceriesService()],
+    [
+      GroceriesService(),
+    ],
     const <Interceptor>[],
-    CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
+    CodecRegistry(
+      codecs: const [
+        GzipCodec(),
+        IdentityCodec(),
+      ],
+    ),
   );
   await server.serve(port: 50000);
   print('✅ Server listening on port ${server.port}...');

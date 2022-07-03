@@ -1,12 +1,9 @@
-import 'package:dart_grpc_server/src/db/items/items_int.dart';
 import 'package:dart_grpc_server/dart_grpc_server.dart';
-import '../data.dart';
 
 class ItemsServices implements IItemsServices {
   @override
   Item createItem(Item item) {
-    items
-        .add({'id': item.id, 'name': item.name, 'categoryId': item.categoryId});
+    items.add({'id': item.id, 'name': item.name, 'categoryId': item.categoryId});
     return item;
   }
 
@@ -19,9 +16,8 @@ class ItemsServices implements IItemsServices {
   @override
   Item editItem(Item item) {
     try {
-      var itemIndex =
-          items.indexWhere((element) => element['id'] == item.id);
-      categories[itemIndex]['name'] = item.name;
+      var itemIndex = items.indexWhere((element) => element['id'] == item.id);
+      items[itemIndex]['name'] = item.name;
     } catch (e) {
       print('🔴 ERROR:: $e');
     }

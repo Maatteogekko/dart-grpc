@@ -1,0 +1,10 @@
+{
+    "protoc": {
+        "path": "protoc",
+        "compile_all_path": "${workspaceRoot}/protos",
+        "options": [
+            "--dart_out=grpc:lib/src/generated/",
+            "--proto_path=${workspaceRoot}/protos"
+        ]
+    }
+}
